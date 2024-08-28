@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Define color
+GREEN='\033[1;32m'
+RESET='\033[0m'
+
+# Print the styled message
+echo -e "${GREEN}Running git pre-commit hook...${RESET}"
+
+./gradlew ktlintCheck
+
+ktlintCheckStatus=$?
+
+# return 1 if check fails
+if [[ $ktlintCheckStatus -ne 0 ]]; then
+     exit 1
+else
+     exit 0
+fi
