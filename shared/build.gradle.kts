@@ -4,7 +4,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -29,6 +31,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+            implementation(compose.ui)
+            implementation(compose.foundation)
         }
     }
 }
@@ -48,6 +52,9 @@ android {
             libs.versions.android.minSdk
                 .get()
                 .toInt()
+    }
+    buildFeatures {
+        compose = true
     }
 }
 
